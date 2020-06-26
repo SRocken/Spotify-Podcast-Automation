@@ -12,7 +12,7 @@ import requests
 SPOTIPY_CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
 SPOTIPY_CLIENT_SECRET = os.getenv("SPOTIPY_CLIENT_SECRET")
 SPOTIPY_REDIRECT_URI = os.getenv("SPOTIPY_REDIRECT_URI")
-
+SPOTIPY_REDIRECT_URI = os.getenv("username")
 import sys
 import spotipy
 import spotipy.util as util
@@ -20,7 +20,7 @@ import spotipy.util as util
 
 
 scope = 'user-library-read playlist-modify-public'
-username = "chefbrahardee"
+
 util.prompt_for_user_token(username,
                            scope,
                            SPOTIPY_CLIENT_ID,
