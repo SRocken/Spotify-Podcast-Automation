@@ -3,14 +3,22 @@
 
 {% block content %}
 
-    <h1>This is a heading</h1>
+    <h3>Welcome to the Spotify Podcast Automation app!</h3>
 
-    <p>This is a paragraph text</p>
+<body>
+    <ul>With this app you can automatically update a playlist with the latest episodes from your favorite shows.</ul>
+    <ul>Shows will be added to your playlist as they are released.</ul>
+    <ul>Once you have fully watched your shows, the app will remove them from the playlist when it runs.</ul>
 
-    <ul>
-        <li>First list item</li>
-        <li>Second list item</li>
-        <li>Third list item</li>
-    </ul>
+    <h3>Enter your spotify username below to get started:</h3>
+    <ul></ul>
+    <form method = ["GET", "POST"] action="/login/create/">
+        <input type="text" name = "username">
+      <button class="button-style" value="Login"> Login
+      </botton>
+    </form>
+
+</body>
+
 
 {% endblock %}

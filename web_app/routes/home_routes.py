@@ -13,3 +13,5 @@ def index():
 def activity():
     print("Visited Activity Page")
     return render_template("activity.html")
+
+# TODO: Change the login page to pull up the spotify login; with a rediret to the Activity page after login
