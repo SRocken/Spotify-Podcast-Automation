@@ -33,50 +33,29 @@ def podcast_followed_new_eps(username, token):
     sp = spotipy.Spotify(auth=token)
     results = sp.current_user_saved_shows()
     items = results["items"]
-    for p in items:
-        SHOW_LIST = [p["show"] for p in items]
-    for i in SHOW_LIST:
-        ID_LIST = [i["id"] for i in SHOW_LIST]
+    ID_LIST = [p["show"]["id"] for p in items]
     episodes = []
     for x in ID_LIST:
         sodes = sp.show(x)
-        episodes.append(sodes)
-    for q in episodes:
-        episode_in = [q['episodes'] for q in episodes]
-    for q in episode_in:
-        show_items = [q['items'] for q in episode_in]
+        episodes.append(sodes) 
+    show_items = [p["episodes"]["items"] for p in episodes]
     recent_releases = [item[0] for item in show_items]
     recent_ep_uris = [ sub['uri'] for sub in recent_releases ] 
-    recent_descriptions = [ sub['description'] for sub in recent_releases ] 
-    recent_show_titles= [ sub['description'] for sub in recent_releases ] 
-    new_episodes = []
-    for x in recent_ep_uris:
-        sodes = sp.episode(x)
-        new_episodes.append(sodes)
-    #print(new_episodes)
-    for q in new_episodes:
-        episode_info = str([q['name'] + q['description'] for q in new_episodes])
     print(recent_ep_uris)
 
 
-podcast_followed_new_eps(username, token)
+#podcast_followed_new_eps(username, token)
 
 def new_ep_descriptions_titles(username, token):
     sp = spotipy.Spotify(auth=token)
     results = sp.current_user_saved_shows()
     items = results["items"]
-    for p in items:
-        SHOW_LIST = [p["show"] for p in items]
-    for i in SHOW_LIST:
-        ID_LIST = [i["id"] for i in SHOW_LIST]
+    ID_LIST = [p["show"]["id"] for p in items]
     episodes = []
     for x in ID_LIST:
         sodes = sp.show(x)
-        episodes.append(sodes)
-    for q in episodes:
-        episode_in = [q['episodes'] for q in episodes]
-    for q in episode_in:
-        show_items = [q['items'] for q in episode_in]
+        episodes.append(sodes) 
+    show_items = [p["episodes"]["items"] for p in episodes]
     recent_releases = [item[0] for item in show_items]
     recent_ep_uris = [ sub['uri'] for sub in recent_releases ] 
     recent_descriptions = [ sub['description'] for sub in recent_releases ] 
@@ -85,8 +64,7 @@ def new_ep_descriptions_titles(username, token):
     for x in recent_ep_uris:
         sodes = sp.episode(x)
         new_episodes.append(sodes)
-    #print(new_episodes)
-    for q in new_episodes:
     episode_info = [q['show']["name"] + ":" + " " + q['name'] + " " + q['description'] for q in new_episodes]
     print(*episode_info, sep = "\n")
 
+new_ep_descriptions_titles(username, token)

@@ -41,20 +41,7 @@ else:
 # 'spotify:show:5fRBo7ROBQNq8IAavbO64H'
 
 
-show_id = "spotify:show:5fRBo7ROBQNq8IAavbO64H"
-
-for p in items:
-    SHOW_LIST = [p["show"] for p in items]
-    #print(SHOW_LIST)
-
-#Get Followed Show IDS
-for i in SHOW_LIST:
-    ID_LIST = [i["id"] for i in SHOW_LIST]
-
-
-
-
-#Compile episodes of Followed Shows
+ID_LIST = [p["show"]["id"] for p in items]
 episodes = []
 for x in ID_LIST:
     sodes = sp.show(x)
@@ -70,16 +57,15 @@ for x in ID_LIST:
 
 
 #Remove Show Meta Data
-for q in episodes:
-    episode_in = [q['episodes'] for q in episodes]
-for q in episode_in:
-    show_items = [q['items'] for q in episode_in]
 
+
+show_items = [p["episodes"]["items"] for p in episodes]
 #Get Most Recent 
 recent_releases = [item[0] for item in show_items]
 recent_ep_uris = [ sub['uri'] for sub in recent_releases ] 
 recent_descriptions = [ sub['description'] for sub in recent_releases ] 
 recent_show_titles= [ sub['description'] for sub in recent_releases ] 
+print(recent_ep_uris)
 
 #print(*recent_descriptions, sep='\n')
 
@@ -104,6 +90,6 @@ for q in new_episodes:
     episode_info = [q['show']["name"] + ":" + " " + q['name'] + " " + q['description'] for q in new_episodes]
     #show_titles = str([q['show']["name"] for q in new_episodes])
 #print(show_titles)
-print(*episode_info, sep = "\n")
+#print(*episode_info, sep = "\n")
 
 
