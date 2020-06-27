@@ -1,10 +1,10 @@
-# app/weather_service.py
 import os
 from dotenv import load_dotenv
 import spotipy
 import sys
 from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy.util as util
+
 load_dotenv()
 import requests
 import datetime
@@ -94,7 +94,14 @@ recent_show_titles= [ sub['description'] for sub in recent_releases ]
 
 #FULL META DATA FOR NEW EPS
 
-
+def new_podcast_(username, token):
+    sp = spotipy.Spotify(auth=token) #calls spotipy with authorized credentials
+    results = sp.current_user_playlists(limit=50)
+    for i, item in enumerate(results['items']):
+        if i or item["name"] != "Favorite Podcasts":
+            sp.user_playlist_create(username, "Favorite Podcasts", public=True, description='Latest Episodes') #Consider branding app & playlist name
+        else:
+            break
 
 new_episodes = []
 for x in recent_ep_uris:
