@@ -11,14 +11,7 @@ import datetime
 
 # Date 
 
-y = datetime.datetime.now()
-date_today = (y.strftime("%Y-%m-%d"))
 
-today = datetime.date.today()
-
-yesterday = str(today - datetime.timedelta(days=1))
-
-print(yesterday)
 
 SPOTIPY_CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
 SPOTIPY_CLIENT_SECRET = os.getenv("SPOTIPY_CLIENT_SECRET")
@@ -57,6 +50,9 @@ for p in items:
 #Get Followed Show IDS
 for i in SHOW_LIST:
     ID_LIST = [i["id"] for i in SHOW_LIST]
+
+
+
 
 #Compile episodes of Followed Shows
 episodes = []
@@ -100,14 +96,14 @@ new_episodes = []
 for x in recent_ep_uris:
     sodes = sp.episode(x)
     new_episodes.append(sodes)
-print(new_episodes)
+#print(new_episodes)
 
 
 #EPISODE TITLE and Description List 
 for q in new_episodes:
-    episode_info = str([q['name'] + q['description'] for q in new_episodes])
-#print(episode_info)
-
-#print(episode_info)
+    episode_info = [q['show']["name"] + ":" + " " + q['name'] + " " + q['description'] for q in new_episodes]
+    #show_titles = str([q['show']["name"] for q in new_episodes])
+#print(show_titles)
+print(*episode_info, sep = "\n")
 
 
