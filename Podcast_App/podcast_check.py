@@ -8,8 +8,17 @@ import spotipy.util as util
 load_dotenv()
 import requests
 import datetime
+import datetime
 
 # Date 
+
+y = datetime.datetime.now()
+date_today = str(y.strftime("%Y-%m-%d"))
+today = datetime.date.today()
+yesterday = str(today - datetime.timedelta(days=1))
+
+print(yesterday)
+print(date_today)
 
 
 
@@ -62,10 +71,21 @@ for x in ID_LIST:
 show_items = [p["episodes"]["items"] for p in episodes]
 #Get Most Recent 
 recent_releases = [item[0] for item in show_items]
-recent_ep_uris = [ sub['uri'] for sub in recent_releases ] 
+new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday or date_today]
+recent_ep_uris = [ sub['uri'] for sub in new_release] 
 recent_descriptions = [ sub['description'] for sub in recent_releases ] 
 recent_show_titles= [ sub['description'] for sub in recent_releases ] 
+episode_dates = [ sub['release_date'] for sub in recent_releases ] 
 print(recent_ep_uris)
+
+#newly_released_list = []
+#new_release = [b for b in recent_releases if str(b["release_date"]) == "2020-06-27" or "2020-06-27"]
+#newly_released_list.append(new_release)
+#print(recent_releases)
+#print(new_release)
+#print(episode_dates)
+
+#print(newly_released_list)
 
 #print(*recent_descriptions, sep='\n')
 

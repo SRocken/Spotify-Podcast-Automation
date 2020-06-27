@@ -5,7 +5,7 @@ import spotipy
 import sys
 from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy.util as util
-
+import datetime
 load_dotenv()
 
 
@@ -40,11 +40,16 @@ def podcast_followed_new_eps(username, token):
         episodes.append(sodes) 
     show_items = [p["episodes"]["items"] for p in episodes]
     recent_releases = [item[0] for item in show_items]
-    recent_ep_uris = [ sub['uri'] for sub in recent_releases ] 
+    y = datetime.datetime.now()
+    date_today = str(y.strftime("%Y-%m-%d"))
+    today = datetime.date.today()
+    yesterday = str(today - datetime.timedelta(days=1))
+    new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday or date_today]
+    recent_ep_uris = [ sub['uri'] for sub in new_release] 
     print(recent_ep_uris)
 
 
-#podcast_followed_new_eps(username, token)
+podcast_followed_new_eps(username, token)
 
 def new_ep_descriptions_titles(username, token):
     sp = spotipy.Spotify(auth=token)
@@ -57,14 +62,17 @@ def new_ep_descriptions_titles(username, token):
         episodes.append(sodes) 
     show_items = [p["episodes"]["items"] for p in episodes]
     recent_releases = [item[0] for item in show_items]
-    recent_ep_uris = [ sub['uri'] for sub in recent_releases ] 
-    recent_descriptions = [ sub['description'] for sub in recent_releases ] 
-    recent_show_titles= [ sub['description'] for sub in recent_releases ] 
+    y = datetime.datetime.now()
+    date_today = str(y.strftime("%Y-%m-%d"))
+    today = datetime.date.today()
+    yesterday = str(today - datetime.timedelta(days=1))
+    new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday or date_today]
+    recent_ep_uris = [ sub['uri'] for sub in new_release] 
     new_episodes = []
     for x in recent_ep_uris:
         sodes = sp.episode(x)
         new_episodes.append(sodes)
-    episode_info = [q['show']["name"] + ":" + " " + q['name'] + " " + q['description'] for q in new_episodes]
+    episode_info = [" +" + q['show']["name"] + ":" + " " + q['name'] + " " + q['description'] for q in new_episodes]
     print(*episode_info, sep = "\n")
 
 new_ep_descriptions_titles(username, token)
