@@ -83,10 +83,30 @@ for q in episode_in:
 #Get Most Recent 
 recent_releases = [item[0] for item in show_items]
 recent_ep_uris = [ sub['uri'] for sub in recent_releases ] 
-print(recent_ep_uris)
+recent_descriptions = [ sub['description'] for sub in recent_releases ] 
 
 
+#print(*recent_descriptions, sep='\n')
 
+#print(recent_releases)
+
+# Get Descriptions 
+
+
+#FULL META DATA FOR NEW EPS
+
+#Podcast title 
+
+
+new_episodes = []
+for x in recent_ep_uris:
+    sodes = sp.episode(x)
+    new_episodes.append(sodes)
+
+#TITLE LIST 
+for q in new_episodes:
+    episode_info = [q['name'] for q in episodes]
+print(episode_info)
 
 
 
