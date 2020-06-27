@@ -2,6 +2,9 @@
 
 from flask import Blueprint, render_template, request, redirect, flash
 
+from web_app.spotify_auth import authenication_token, write_username_to_csv, read_username_from_csv, clear_username_csv, check_login
+from web_app.playlist import podcast_playlist_generator
+
 home_routes = Blueprint("home_routes", __name__)
 
 @home_routes.route("/")
@@ -10,7 +13,7 @@ def index():
     return render_template("login.html")
 
 
-@home_routes.route("/create", methods = ['GET', 'POST'])
+@home_routes.route("/create/", methods = ['GET', 'POST'])
 def Execute(username=None):
     print("Executing login script")
 
@@ -24,64 +27,35 @@ def Execute(username=None):
     if(username_detected):
         print("debug: " + username)
         print("username detected")
-        #session['username'] = username
+
+
+        # delete user id from csv to maintain clean code
+        clear_username_csv()
 
         write_username_to_csv(username)
+        print("Saved username to CSV")
 
-        print("saved to memory")
+        #auth_url = authenication_token(username).get_authorize_url()#> 'https://accounts.spotify.com/authorize?client_id=_____&response_type=code&redirect_uri=________&scope=playlist-modify-private+playlist-read-private'
+        #return redirect(auth_url)
 
-        auth_url = authenication_token(username).get_authorize_url()#> 'https://accounts.spotify.com/authorize?client_id=_____&response_type=code&redirect_uri=________&scope=playlist-modify-private+playlist-read-private'
-        print("redirect")
-        return redirect(auth_url)
+        print("Generating Spotify Token")
+        authenication_token(username)
+        return redirect("/activity")
+
     else:
         return render_template("no_token.html")
 
     app.run(debug=True)
 
-@home_routes.route("/callback/")
-def Callback(code=None):
-
-    print("callback")
-    spotify_username = read_username_from_csv()
-
-    #delete user id from csv to maintain clean code
-    clear_username_csv()
-
-    #changed flow to accommodate changes of domain, resets session variable with expectation session will persist
-    session['username'] = spotify_username
-
-    print("get user id from csv")
-    print(spotify_username)
-
-    #gets authorization code from url
-    print("SPOTIFY CALLBACK")
-    print("REQUEST PARAMS:", dict(request.args))
-
-    if "code" in request.args:
-        code = request.args["code"]
-        print("CODE:", code)
-
-        sp_oauth = authenication_token(spotify_username)
-        token_info = sp_oauth.get_access_token(code)
-        print("TOKEN INFO:", token_info)
-        token = token_info["access_token"]
-        print("ACCESS TOKEN:", token)
-
-        session['token_var'] = token
-
-        check = check_login(token, spotify_username)
-        if(check):
-            print("Taking you to your podcast activity page")
-            return redirect("/activity")
-        else:
-            return render_template("no_token.html")
-    else:
-        message = "OOPS, UNABLE TO GET CODE"
-        print(message)
-        return message
-
-
 @home_routes.route("/activity")
 def activity():
     print("Visited Activity Page")
+
+# TODO: Build an if statement to read if a playlist called "Favorite Podcasts" already exists
+    username = read_username_from_csv()
+    token = authenication_token(username)
+
+    print("Building your Podcast playlist")
+    podcast_playlist_generator(username, token)
+
     return render_template("activity.html")
