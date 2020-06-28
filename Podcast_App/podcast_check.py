@@ -72,7 +72,7 @@ show_items = [p["episodes"]["items"] for p in episodes]
 #Get Most Recent 
 recent_releases = [item[0] for item in show_items]
 new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday or date_today]
-recent_ep_uris = [ sub['uri'] for sub in new_release] 
+recent_ep_uris = [ sub['id'] for sub in new_release] 
 recent_descriptions = [ sub['description'] for sub in recent_releases ] 
 recent_show_titles= [ sub['description'] for sub in recent_releases ] 
 episode_dates = [ sub['release_date'] for sub in recent_releases ] 
