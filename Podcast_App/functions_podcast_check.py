@@ -45,7 +45,7 @@ def podcast_followed_new_eps(username, token):
     today = datetime.date.today()
     yesterday = str(today - datetime.timedelta(days=1))
     new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday or date_today]
-    recent_ep_uris = [ sub['uri'] for sub in new_release] 
+    recent_ep_uris = [ sub['id'] for sub in new_release] 
     print(recent_ep_uris)
 
 
