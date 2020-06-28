@@ -13,7 +13,7 @@ load_dotenv()
 # Define user token specific to this application
 
 def authenication_token(spotify_username):
-    scopes = 'user-follow-read playlist-modify-private playlist-modify-public user-read-playback-position' # Scopes set areas the app can access in the authorized user's account - only needs to be authorized once and then is saved in user's preferences
+    scopes = 'user-library-read user-follow-read playlist-modify-private playlist-modify-public user-read-playback-position' # Scopes set areas the app can access in the authorized user's account - only needs to be authorized once and then is saved in user's preferences
     username = spotify_username 
 
     client_id_saved = os.environ.get("SPOTIFY_CLIENT_ID")
@@ -70,13 +70,3 @@ def clear_username_csv():
     cleared = True
 
     return cleared
-
-def check_login(token,spotify_username):
-    sp = spotipy.Spotify(auth=token)
-
-    me = sp.current_user()
-
-    if(me['id'] != spotify_username):
-        return False
-    else:
-        return True

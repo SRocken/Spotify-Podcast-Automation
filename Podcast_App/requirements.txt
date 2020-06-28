@@ -1,5 +1,0 @@
-python-dotenv
-spotipy
-
-
-pip install git+ssh://git@github.com/BlahCo/search/tree/prod_release_branch/ProductName
