@@ -45,8 +45,6 @@ if 'Favorite Podcasts' not in playlists_names:
 else:
     print("Favorite Podcasts Exists")
 
-exit()
-
 
 #ADD NEW EPISODEST TO PLAYLIST
 
