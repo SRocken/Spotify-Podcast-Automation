@@ -55,41 +55,4 @@ def podcast_followed_new_eps(username, token):
         user_playlist_add_episodes(sp, username, playlist['id'], recent_ep_uris, position=None)
     else:
         recent_ep_uris =[]
-    
-    
-    
-
-# TODO: Link to podcast_new_eps and finalize below, ideally plugins should be username, token, recent_ep_uris (from above)
-
-#Revised Spotipy add to playlist function to work with podcast episodes
-#Consulted with Gil Cukierman to debug Spotipy code found at this link: https://github.com/plamere/spotipy/blob/24df9ea4cf35248a016b27d9104462e619ca8132/spotipy/client.py#L1482
-#Adjustments made:
-  # Paramenter "self" to call sp for Spotipy authenticated instance 
-  # Paramenter "tracks" changed to "episodes" for continunity
-  # ftrack "tracks" swapped for "episode" to create valide URI for Spotify API endpoint
-
-#def add_episodes(username, token, position=None):
-#        sp = spotipy.Spotify(auth=token)
-#        results = sp.current_user_playlists(limit=50)
-#        for i, item in enumerate(results['items']):
-#            if i or item["name"] == "Favorite Podcasts":
-#                playlist = "Favorite Podcasts"
-#                plid = sp._get_id("playlist", playlist_id)
-#                ftracks = [sp._get_uri("episode", tid) for tid in episodes]
-#                return sp._post(
-#                    "users/%s/playlists/%s/tracks" % (username, plid),
-#                    payload=ftracks,
-#                    position=position,
-#                )
-#            else:
-#                break
-
-##Call add to playlist function to add latest episodes from recent episode URI's list(placeholder list):
-
-
-#if not recent_ep_uris:
-#    updated_playlist = user_playlist_add_episodes(sp, username, playlist['id'], recent_ep_uris, position=None) 
-#    pprint.pprint(updated_playlist)
-#else: 
-#    print("No New Episodes")
 
