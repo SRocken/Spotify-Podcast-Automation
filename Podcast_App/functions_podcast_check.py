@@ -45,11 +45,16 @@ def podcast_followed_new_eps(username, token):
     today = datetime.date.today()
     yesterday = str(today - datetime.timedelta(days=1))
     new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday or date_today]
+    if len(new_release) == 0:
+        print("NONE")
+        exit()
     recent_ep_uris = [ sub['id'] for sub in new_release] 
     print(recent_ep_uris)
 
 
 podcast_followed_new_eps(username, token)
+
+print('--------')
 
 def new_ep_descriptions_titles(username, token):
     sp = spotipy.Spotify(auth=token)
@@ -67,6 +72,9 @@ def new_ep_descriptions_titles(username, token):
     today = datetime.date.today()
     yesterday = str(today - datetime.timedelta(days=1))
     new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday or date_today]
+    if len(new_release) == 0:
+        print("NONE")
+        exit()
     recent_ep_uris = [ sub['uri'] for sub in new_release] 
     new_episodes = []
     for x in recent_ep_uris:
@@ -76,3 +84,6 @@ def new_ep_descriptions_titles(username, token):
     print(*episode_info, sep = "\n")
 
 new_ep_descriptions_titles(username, token)
+
+
+
