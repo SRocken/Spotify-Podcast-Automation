@@ -14,35 +14,23 @@ from email_update import send_episode_email
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 #
-SPOTIPY_CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
-SPOTIPY_CLIENT_SECRET = os.getenv("SPOTIPY_CLIENT_SECRET")
-SPOTIPY_REDIRECT_URI = os.getenv("SPOTIPY_REDIRECT_URI")
-SPOTIPY_REDIRECT_URI = os.getenv("SPOTIPY_REDIRECT_URI")
+client_id_saved = os.environ.get("SPOTIFY_CLIENT_ID")
+client_secret_saved = os.environ.get("SPOTIFY_CLIENT_SECRET")
+redirect_uri_saved = os.environ.get("SPOTIFY_REDIRECT_URI")
 username = os.getenv("username")
 scope = 'user-library-read playlist-modify-public'
 #
 util.prompt_for_user_token(username,
-                           scope,
-                           SPOTIPY_CLIENT_ID,
-                           SPOTIPY_CLIENT_SECRET,
-                           SPOTIPY_REDIRECT_URI)
+                        scope,
+                        client_id= client_id_saved,
+                        client_secret= client_secret_saved,
+                        redirect_uri= redirect_uri_saved)
 
 token = util.prompt_for_user_token(username, scope)
 
 
 def run_full(username, token):
-   #podcast_playlist_generator(username, token)
-   #podcast_followed_new_eps(username, token)
-   #user_playlist_add_episodes(username, token)
-   #send_episode_email(username, token)
-   #print(done)
     sp = spotipy.Spotify(auth=token) #calls spotipy with authorized credentials
-    #results = sp.current_user_playlists(limit=50)
-    #for i, item in enumerate(results['items']):
-    #    if i or item["name"] != "Favorite Podcasts":
-    #        sp.user_playlist_create(username, "Favorite Podcasts", public=True, description='Latest Episodes') #Consider branding app & playlist name
-    #    else:
-    #        break
     sp = spotipy.Spotify(auth=token)
     results = sp.current_user_saved_shows()
     items = results["items"]
@@ -60,7 +48,6 @@ def run_full(username, token):
     date_today = str(y.strftime("%Y-%m-%d"))
     yesterday_date= str(today - datetime.timedelta(days=1))
     new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday_date]
-    print(new_release)
     if len(new_release) > 0:
         recent_ep_uris = [sub['id'] for sub in new_release]
         playlists = sp.current_user_playlists()
@@ -109,12 +96,6 @@ def send_episode_email(username, token):
             "name": ""
         }
 
-    #template_data = {
-    #                    "episode_info":[
-    #                    {"show": "Test Show" ,"name": "Test Episode"},
-    #                    {"show": "Try 2", "name": "Tester"}
-    #                    ]
-    #                }
     template_data = {"episode_info": episode_details}
  
     # Building the ability to send the email
