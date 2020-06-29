@@ -60,7 +60,7 @@ date_today = str(y.strftime("%Y-%m-%d"))
 today = datetime.date.today()
 yesterday = str(today - datetime.timedelta(days=1))
 new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday or date_today]
-playlist = "6Rl3mWSHnsZ8CRjHRs4NCq"
+playlist = "1SkCsgnMWf2TmV8WZe2BTA"
 if len(new_release) > 0:
     recent_ep_uris = [ sub['id'] for sub in new_release] 
     #print(recent_ep_uris)
