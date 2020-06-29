@@ -25,7 +25,6 @@ def prompt_for_user_token(
     client_id=None,
     client_secret=None,
     redirect_uri=None,
-    cache_path=None,
     oauth_manager=None,
     show_dialog=False
 ):
