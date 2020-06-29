@@ -46,8 +46,7 @@ if token:
 else:
     print("Can't get token for", username)
 
-#print(results)
-# 'spotify:show:5fRBo7ROBQNq8IAavbO64H'
+
 
 
 ID_LIST = [p["show"]["id"] for p in items]

@@ -72,7 +72,7 @@ def new_ep_descriptions_titles(username, token):
     date_today = str(y.strftime("%Y-%m-%d"))
     today = datetime.date.today()
     yesterday = str(today - datetime.timedelta(days=1))
-    new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday or date_today]
+    new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday]
     if len(new_release) > 0:
         recent_ep_uris = [ sub['uri'] for sub in new_release] 
         new_episodes = []
@@ -86,6 +86,11 @@ def new_ep_descriptions_titles(username, token):
         episode_info = []
 
 new_ep_descriptions_titles(username, token)
+
+
+
+
+
 
 
 # IMAGE FUNCTION WORK IN PROGRESS 
