@@ -4,9 +4,9 @@ Welcome to our Podcast Automation App! We hope this application makes it easier 
 
 ## Application Overview
 
-We built this application becasue Spotify does not always keep their listeners in the loop on their favorite podcasts. Spotify does not currently have a native way to notify users when the podcasts they follow add new episodes, leaving it up to their users to manually check everyday when an episode is added.
+We built this application becasue Spotify does not always keep their listeners in the loop on their favorite podcasts. Spotify does not currently have a native way to notify users when the podcasts they follow add new episodes, leaving it up to their users to manually check every day ot see if an episode was added.
 
-This application automatically updates a playlist in your Spotify library with the latest episodes from the podcasts you have followed. It then sends you a daily email with a summary of what has been added, so you can easily keep up with their favorite shows in an organized and hands-free way.
+This application automatically updates a playlist in your Spotify library with the latest episodes from the podcasts you have followed. It then sends you a daily email with a summary of what has been added, so you can easily keep up with your favorite shows in an organized and hands-free way.
 
 ## Application Setup
 
@@ -40,7 +40,7 @@ The fastest way to get started is to fork this repository and clone a local copy
     * MY_EMAIL
     * TO_EMAIL
 
-* Step 4: Complete the one-time Podcast Automation App Activation & run locally
+* Step 4: Complete the one-time Podcast Automation App Activation & run the app locally
 
         FLASK_APP=web_app flask run
     Once your web browser opens, navigate to the provided link and follow the instructions. You can run the app locally after the initial authorization using the following script:
@@ -58,7 +58,7 @@ The fastest way to get started is to fork this repository and clone a local copy
 
 ## Quick Overview of the Repo's Files
 
-* web_app.home_routes.py is a primary Flask application that processes the users Spotify credentials, authorizes the application to access the user's account, and then runs the playlist management and email functions locallly 
+* web_app.home_routes.py is the primary Flask application that processes the users Spotify credentials, authorizes the application to access the user's account, and then runs the playlist management and email functions locally 
 
 * email_update.py is a primary application that automatically updates your Favorite Podcasts playlist and then calls the Sendgrid API to send you an email with a summary of activity
 
