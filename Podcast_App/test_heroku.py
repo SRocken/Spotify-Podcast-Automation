@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import spotipy
 import sys
 from spotipy.oauth2 import SpotifyClientCredentials
-import spotipy.util as util
+import utils as util
 import datetime
 load_dotenv()
 
