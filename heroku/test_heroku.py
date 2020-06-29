@@ -137,7 +137,6 @@ def send_episode_email(username, token):
 
 #Need to run web app at least once before using this
 from spotify_auth import authenication_token, read_username_from_csv
-from playlist_management import podcast_followed_new_eps
 
 username = read_username_from_csv()
 token = authenication_token(username)
