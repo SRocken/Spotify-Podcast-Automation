@@ -40,11 +40,14 @@ def podcast_followed_new_eps(username, token):
         episodes.append(sodes) 
     
     show_items = [p["episodes"]["items"] for p in episodes]
-    recent_releases = [item[0] for item in show_items]
+    first_releases= [item[0] for item in show_items]
+    second_releases= [item[1] for item in show_items]
+    recent_releases= first_releases + second_releases
+    y = datetime.datetime.now()
     today = datetime.date.today()
-    yesterday = str(today - datetime.timedelta(days=1))
-    new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday]
-   
+    date_today = str(y.strftime("%Y-%m-%d"))
+    yesterday_date= str(today - datetime.timedelta(days=1))
+    new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday_date]
     if len(new_release) > 0:
         recent_ep_uris = [sub['id'] for sub in new_release]
         playlists = sp.current_user_playlists()
@@ -64,13 +67,14 @@ def new_ep_descriptions_titles(username, token):
     for x in ID_LIST:
         sodes = sp.show(x)
         episodes.append(sodes) 
-    show_items = [p["episodes"]["items"] for p in episodes]
-    recent_releases = [item[0] for item in show_items]
+    first_releases= [item[0] for item in show_items]
+    second_releases= [item[1] for item in show_items]
+    recent_releases= first_releases + second_releases
     y = datetime.datetime.now()
-    date_today = str(y.strftime("%Y-%m-%d"))
     today = datetime.date.today()
-    yesterday = str(today - datetime.timedelta(days=1))
-    new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday or date_today]
+    date_today = str(y.strftime("%Y-%m-%d"))
+    yesterday_date= str(today - datetime.timedelta(days=1))
+    new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday_date]
     if len(new_release) > 0:
         recent_ep_uris = [sub['uri'] for sub in new_release] 
         new_episodes = []
