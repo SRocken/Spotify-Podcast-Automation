@@ -5,6 +5,7 @@ from flask import Blueprint, render_template, request, redirect, flash
 from web_app.spotify_auth import authenication_token, write_username_to_csv, read_username_from_csv, clear_username_csv
 from web_app.playlist_creator import podcast_playlist_generator
 from web_app.playlist_management import podcast_followed_new_eps
+from web_app.email_update import send_episode_email
 
 home_routes = Blueprint("home_routes", __name__)
 
@@ -52,8 +53,8 @@ def Execute(username=None):
 def activity():
     print("Visited Activity Page")
 
-# TODO: Build an if statement to read if a playlist called "Favorite Podcasts" already exists
     username = read_username_from_csv()
+
     token = authenication_token(username)
 
     print("Building you a Favorite Podcasts playlist")
@@ -61,5 +62,11 @@ def activity():
 
     print("Adding new episodes for followed podcasts to Favorite Podcasts playlist")
     podcast_followed_new_eps(username, token)
+
+    #print("Printing added episodes:")
+    #new_ep_descriptions_titles(username, token)
+
+    print("Emailing you a summary")
+    send_episode_email()
 
     return render_template("activity.html")
