@@ -29,6 +29,7 @@ sp = spotipy.Spotify(auth=token) #calls spotipy with authorized credentials
 
 #Get current playlists, will retrieve first 50 (latest)
 playlists = sp.current_user_playlists()
+
 playlists_items = playlists['items']
 playlists_names = []
 for x in playlists_items:
@@ -43,8 +44,11 @@ if 'Favorite Podcasts' not in playlists_names:
     playlist = sp.user_playlist_create(username, "Favorite Podcasts", public=True, description='Latest Episodes') #Consider branding app & playlist name
     print(playlist)
 else:
+    favorite_podcasts = [x for x in playlists_items if x['name'] == "Favorite Podcasts"]
+    playlist = favorite_podcasts[0]  #removes playlist from list
     print("Favorite Podcasts Exists")
-
+    
+print(playlist)
 
 #ADD NEW EPISODEST TO PLAYLIST
 
@@ -75,13 +79,12 @@ def user_playlist_add_episodes(
 
 #Call add to playlist function to add latest episodes from recent episode URI's list(placeholder list):
 
-recent_ep_uris =['spotify:episode:4iO3CvsdMYlxi39On3AACd', 'spotify:episode:0dl8anyU861xYGgbYn0cop', 'spotify:episode:2SQi1ykYm1CCOu8HprMGnN', 'spotify:episode:1KDoLoOotv3ZluOKgZ36UK']
+recent_ep_uris =['4iO3CvsdMYlxi39On3AACd', '0dl8anyU861xYGgbYn0cop', '2SQi1ykYm1CCOu8HprMGnN', '1KDoLoOotv3ZluOKgZ36UK']
 
-if not recent_ep_uris:
+if recent_ep_uris:
     updated_playlist = user_playlist_add_episodes(sp, username, playlist['id'], recent_ep_uris, position=None) 
     pprint.pprint(updated_playlist)
 else: 
     print("No New Episodes")
-
 
 

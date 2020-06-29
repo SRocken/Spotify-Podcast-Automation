@@ -7,6 +7,6 @@ def podcast_playlist_generator(username, token):
     results = sp.current_user_playlists(limit=50)
     for i, item in enumerate(results['items']):
         if i or item["name"] != "Favorite Podcasts":
-            playlist = sp.user_playlist_create(username, "Favorite Podcasts", public=True, description='Latest Episodes') #Consider branding app & playlist name
+            sp.user_playlist_create(username, "Favorite Podcasts", public=True, description='Latest Episodes') #Consider branding app & playlist name
         else:
             break
