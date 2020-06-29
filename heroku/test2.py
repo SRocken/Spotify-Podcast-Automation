@@ -26,16 +26,13 @@ util.prompt_for_user_token(username,
 token = util.prompt_for_user_token(username, scope)
 
 
-
-from spotify_auth import authenication_token, read_username_from_csv
-from playlist_management import podcast_followed_new_eps
-from email_update import send_episode_email
-
-username = read_username_from_csv()
-token = authenication_token(username)
-#Add new episodes to Favorite Podcasts list
-podcast_followed_new_eps(username, token)
-#Send email
-send_episode_email(username, token)
+def podcast_playlist_generator(username, token):
+    sp = spotipy.Spotify(auth=token) #calls spotipy with authorized credentials
+    results = sp.current_user_playlists(limit=50)
+    for i, item in enumerate(results['items']):
+        if i or item["name"] != "Favorite Podcasts":
+            sp.user_playlist_create(username, "Favorite Podcasts", public=True, description='Latest Episodes') #Consider branding app & playlist name
+        else:
+            break
 
 
