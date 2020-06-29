@@ -29,6 +29,7 @@ sp = spotipy.Spotify(auth=token) #calls spotipy with authorized credentials
 
 #Get current playlists, will retrieve first 50 (latest)
 playlists = sp.current_user_playlists()
+
 playlists_items = playlists['items']
 playlists_names = []
 for x in playlists_items:
@@ -82,6 +83,5 @@ if not recent_ep_uris:
     pprint.pprint(updated_playlist)
 else: 
     print("No New Episodes")
-
 
 

@@ -56,7 +56,7 @@ def activity():
     username = read_username_from_csv()
     token = authenication_token(username)
 
-    print("Building your Favorit Podcasts playlist")
+    print("Building you a Favorite Podcasts playlist")
     podcast_playlist_generator(username, token)
 
     print("Adding new episodes for followed podcasts to Favorite Podcasts playlist")

@@ -19,6 +19,15 @@ def user_playlist_add_episodes(
             payload=ftracks,
             position=position,
         )
+    
+# Source: https://github.com/s2t2/playlist-service-py/blob/master/app/spotify_service.py 
+#def get_playlist(sp, playlist_name):
+#        """Find the specified playlist. Requires user auth token."""
+#        try:
+#            playlist = [p for p in sp.current_user_playlists() if p["name"] == playlist_name][0]
+#        except IndexError as err:
+#            playlist = None
+#        return playlist
 
 def podcast_followed_new_eps(username, token):
     sp = spotipy.Spotify(auth=token)
@@ -38,21 +47,22 @@ def podcast_followed_new_eps(username, token):
     today = datetime.date.today()
     yesterday = str(today - datetime.timedelta(days=1))
     new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday or date_today]
-    
+   
     if len(new_release) > 0:
         recent_ep_uris = [ sub['id'] for sub in new_release]
-
-#TODO: Need to make playlist the right definition, right now is just creating a new playlist
-        #playlists = sp.current_user_playlists()
+        playlists = sp.current_user_playlists()
+        playlists = enumerate(playlists['items'])
         #playlists_items = playlists['items']
         #playlists_names = []
         #for x in playlists_items:
         #    playlists_names.append(x['name'])
-        
-        playlist = sp.user_playlist_create(username, "Favorite Podcasts", public=True, description='Latest Episodes') #Consider branding app & playlist name
-        
-
+        #if 'Favorite Podcasts' not in playlists_names:
+        #    playlist = sp.user_playlist_create(username, "Favorite Podcasts", public=True, description='Latest Episodes') #Consider branding app & playlist name
+        #else:
+        #    print("Favorite Podcasts Exists")
+        #playlist = get_playlist(sp, playlist_name="Favorite Podcasts")
+        playlist = [p for p in playlists if p["name"] == "Favorite Podcasts"]
         user_playlist_add_episodes(sp, username, playlist['id'], recent_ep_uris, position=None)
     else:
-        recent_ep_uris =[]
+        print("There are no new episodes to add at this time")
 
