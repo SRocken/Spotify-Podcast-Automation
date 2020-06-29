@@ -53,7 +53,7 @@ def podcast_followed_new_eps(username, token):
         #print(recent_ep_uris)
 
 
-#podcast_followed_new_eps(username, token)
+podcast_followed_new_eps(username, token)
 
 print('--------')
 
@@ -85,7 +85,7 @@ def new_ep_descriptions_titles(username, token):
     else:
         episode_info = []
 
-#new_ep_descriptions_titles(username, token)
+new_ep_descriptions_titles(username, token)
 
 
 # IMAGE FUNCTION WORK IN PROGRESS 
@@ -103,6 +103,7 @@ def new_ep_image_urls(username, token):
     y = datetime.datetime.now()
     date_today = str(y.strftime("%Y-%m-%d"))
     today = datetime.date.today()
+    #print(recent_releases)
     yesterday = str(today - datetime.timedelta(days=1))
     new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday or date_today]
     if len(new_release) == 0:
@@ -114,7 +115,7 @@ def new_ep_image_urls(username, token):
         sodes = sp.episode(x)
         new_episodes.append(sodes)
     episode_images_details = [q['images'] for q in new_episodes]
-    #print(episode_images_details)
-    single_urls = [b for b in episode_images_details if str(b["height"]) == "640"]
-    print(single_urls)
+    print(episode_images_details)
+    #single_urls = [b for b in episode_images_details if str(b["height"]) == "640"]
+    #print(single_urls)
 #new_ep_image_urls(username, token)
