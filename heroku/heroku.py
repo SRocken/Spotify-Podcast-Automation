@@ -6,7 +6,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy.util as util
 import datetime
 
-from spotify_auth import authenication_token, read_username_from_csv
+#from spotify_auth import authenication_token, read_username_from_csv
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
@@ -134,8 +134,8 @@ def send_episode_email(username, token):
         return None
 
 #Need to run web app at least once before using this
-from spotify_auth import authenication_token, read_username_from_csv
-token = authenication_token(username)
+#from spotify_auth import authenication_token, read_username_from_csv
+#token = authenication_token(username)
 send_episode_email(username, token)
 
 
