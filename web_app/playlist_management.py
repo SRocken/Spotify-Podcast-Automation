@@ -2,7 +2,7 @@
 import spotipy
 import datetime
 
-from spotify_auth import authenication_token, read_username_from_csv
+#from spotify_auth import authenication_token, read_username_from_csv
 
 def user_playlist_add_episodes(
         sp, user, playlist_id, episodes, position=None

@@ -7,13 +7,10 @@ from dotenv import load_dotenv
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
-from spotify_auth import authenication_token, read_username_from_csv
-from playlist_management import podcast_followed_new_eps
-
 load_dotenv()
 
 # Send email using template function
-def send_episode_email():
+def send_episode_email(username, token):
     load_dotenv()
 
     sp = spotipy.Spotify(auth=token)
@@ -78,6 +75,9 @@ def send_episode_email():
 
 #Need to run web app at least once before using this
 if __name__ == "__main__":
+    from spotify_auth import authenication_token, read_username_from_csv
+    from playlist_management import podcast_followed_new_eps
+  
     username = read_username_from_csv()
     token = authenication_token(username)
 
@@ -85,6 +85,6 @@ if __name__ == "__main__":
     podcast_followed_new_eps(username, token)
 
     #Send email
-    send_episode_email()
+    send_episode_email(username, token)
 
 

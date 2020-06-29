@@ -67,6 +67,6 @@ def activity():
     #new_ep_descriptions_titles(username, token)
 
     print("Emailing you a summary")
-    send_episode_email()
+    send_episode_email(username, token)
 
     return render_template("activity.html")
