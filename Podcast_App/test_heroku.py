@@ -22,7 +22,7 @@ util.prompt_for_user_token(username,
                            SPOTIPY_CLIENT_SECRET,
                            SPOTIPY_REDIRECT_URI)
 
-token = util.prompt_for_user_token(username, scope)
+token = util.prompt_for_user_token(username, scope,cache_path=".cache-" + username )
 
 def user_playlist_add_episodes(
         sp, user, playlist_id, episodes, position=None
