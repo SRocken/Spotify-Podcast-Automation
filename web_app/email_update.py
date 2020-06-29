@@ -11,8 +11,6 @@ load_dotenv()
 
 # Send email using template function
 def send_episode_email(username, token):
-    load_dotenv()
-
     sp = spotipy.Spotify(auth=token)
     results = sp.current_user_saved_shows()
     items = results["items"]
@@ -27,7 +25,7 @@ def send_episode_email(username, token):
     date_today = str(y.strftime("%Y-%m-%d"))
     today = datetime.date.today()
     yesterday = str(today - datetime.timedelta(days=1))
-    new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday or date_today]
+    new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday] #or date_today]
     if len(new_release) > 0:
         recent_ep_uris = [sub['uri'] for sub in new_release] 
         new_episodes = []
@@ -40,17 +38,9 @@ def send_episode_email(username, token):
             for q in new_episodes
         ]
     else:
-        episode_details = {
-            "show": "No new episodes have been added",
-            "name": ""
-        }
+        episode_details = [{"show":"Sorry", "name": "There were new episodes to from yesterday"}]
 
-    #template_data = {
-    #                    "episode_info":[
-    #                    {"show": "Test Show" ,"name": "Test Episode"},
-    #                    {"show": "Try 2", "name": "Tester"}
-    #                    ]
-    #                }
+    # Sendgrid template data
     template_data = {"episode_info": episode_details}
  
     # Building the ability to send the email
@@ -81,10 +71,10 @@ if __name__ == "__main__":
     username = read_username_from_csv()
     token = authenication_token(username)
 
-    #Add new episodes to Favorite Podcasts list
+    # Add new episodes to Favorite Podcasts list
     podcast_followed_new_eps(username, token)
 
-    #Send email
+    # Send email
     send_episode_email(username, token)
 
 
