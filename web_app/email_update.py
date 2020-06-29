@@ -7,13 +7,12 @@ from dotenv import load_dotenv
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
-from spotify_auth import authenication_token, read_username_from_csv
-from playlist_management import podcast_followed_new_eps
-
 load_dotenv()
 
 # Send email using template function
-def send_episode_email():
+def send_episode_email(username, token):
+    load_dotenv()
+
     sp = spotipy.Spotify(auth=token)
     results = sp.current_user_saved_shows()
     items = results["items"]
@@ -46,30 +45,39 @@ def send_episode_email():
             "name": ""
         }
 
-    message = Mail(
-        from_email=os.environ.get("MY_EMAIL"),
-        to_emails=os.environ.get("TO_EMAIL")
-        )
-
+    #template_data = {
+    #                    "episode_info":[
+    #                    {"show": "Test Show" ,"name": "Test Episode"},
+    #                    {"show": "Try 2", "name": "Tester"}
+    #                    ]
+    #                }
+    template_data = {"episode_info": episode_details}
+ 
     # Building the ability to send the email
-    sendgrid_client = SendGridAPIClient(os.environ.get("SENDGRID_API_KEY"))
+    client = SendGridAPIClient(os.environ.get("SENDGRID_API_KEY"))
     
-    #Sendgrid Dynamic Template
-    message.dynamic_template_data = {
-        "episode_info": episode_details
-        }
+    message = Mail(from_email=os.environ.get("MY_EMAIL"),to_emails=os.environ.get("TO_EMAIL"))
+     
     message.template_id = os.environ.get("SENDGRID_TEMPLATE_ID")
+
+    message.dynamic_template_data = template_data    
     
     try:
-        response = sendgrid_client.send(message)
+        response = client.send(message)
+        print("RESPONSE: ", type(response))
         print(response.status_code) # if 202 prints then SUCCESS
         print(response.body)
         print(response.headers)
+        return response
     except Exception as e:
         print(e)
+        return None
 
 #Need to run web app at least once before using this
 if __name__ == "__main__":
+    from spotify_auth import authenication_token, read_username_from_csv
+    from playlist_management import podcast_followed_new_eps
+  
     username = read_username_from_csv()
     token = authenication_token(username)
 
@@ -77,6 +85,6 @@ if __name__ == "__main__":
     podcast_followed_new_eps(username, token)
 
     #Send email
-    send_episode_email()
+    send_episode_email(username, token)
 
 

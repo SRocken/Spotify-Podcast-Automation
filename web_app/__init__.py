@@ -7,14 +7,15 @@ from flask import Flask
 
 from web_app.routes.home_routes import home_routes
 
-load_dotenv()
-
-SECRET_KEY = os.getenv("SECRET_KEY", default="super secret")
-
 def create_app():
-    app = Flask(__name__)
-    app.config["SECRET_KEY"] = SECRET_KEY
+    load_dotenv()
 
+    app_env = os.environ.get("FLASK_ENV", "development") # set to "production" in the production environment
+    secret_key = os.environ.get("SECRET_KEY", "super secret") # overwrite this in the production environment
+    testing = False # True if app_env == "test" else False
+    
+    app = Flask(__name__)
+    app.config.from_mapping(ENV=app_env, SECRET_KEY=secret_key, TESTING=testing)
     app.register_blueprint(home_routes)
 
     return app
