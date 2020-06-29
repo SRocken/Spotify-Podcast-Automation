@@ -6,9 +6,11 @@ __all__ = ["CLIENT_CREDS_ENV_VARS", "prompt_for_user_token"]
 import logging
 import os
 import warnings
-
 import spotipy
+import dotenv
 
+username_var = os.getenv("username")
+username = str(username_var)
 LOGGER = logging.getLogger(__name__)
 
 CLIENT_CREDS_ENV_VARS = {
@@ -25,7 +27,7 @@ def prompt_for_user_token(
     client_id=None,
     client_secret=None,
     redirect_uri=None,
-    cache_path=".cache-" + "chefbrahardee",
+    cache_path=".cache-" + (username),
     oauth_manager=None,
     show_dialog=False
 ):
@@ -73,7 +75,7 @@ def prompt_for_user_token(
             )
             raise spotipy.SpotifyException(550, -1, "no credentials set")
 
-        cache_path = ".cache-" + "chefbrahardee"
+        cache_path = ".cache-" + (username)
 
     sp_oauth = oauth_manager or spotipy.SpotifyOAuth(
         client_id,
