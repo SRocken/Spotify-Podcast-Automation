@@ -3,17 +3,14 @@ from dotenv import load_dotenv
 import spotipy
 import sys
 from spotipy.oauth2 import SpotifyClientCredentials
-#import utils as util
 import spotipy.util as util
 import datetime
-load_dotenv()
+
 from spotify_auth import authenication_token, read_username_from_csv
-from playlist_creator import podcast_playlist_generator
-from playlist_management import podcast_followed_new_eps, user_playlist_add_episodes, new_ep_descriptions_titles
-from email_update import send_episode_email
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
-#
+
+load_dotenv()
 client_id_saved = os.environ.get("SPOTIFY_CLIENT_ID")
 client_secret_saved = os.environ.get("SPOTIFY_CLIENT_SECRET")
 redirect_uri_saved = os.environ.get("SPOTIFY_REDIRECT_URI")
@@ -28,6 +25,24 @@ util.prompt_for_user_token(username,
 
 token = util.prompt_for_user_token(username, scope)
 
+def user_playlist_add_episodes(
+        sp, user, playlist_id, episodes, position=None
+    ):
+        """ Adds episodes to a playlist
+            Parameters:
+                - user - the id of the user
+                - playlist_id - the id of the playlist
+                - episodes - a list of track URIs, URLs or IDs
+                - position - the position to add the tracks
+        """
+        plid = sp._get_id("playlist", playlist_id)
+        ftracks = [sp._get_uri("episode", tid) for tid in episodes]
+        return sp._post(
+            "users/%s/playlists/%s/tracks" % (user, plid),
+            payload=ftracks,
+            position=position,
+        )
+    
 
 def run_full(username, token):
     sp = spotipy.Spotify(auth=token) #calls spotipy with authorized credentials
@@ -120,12 +135,7 @@ def send_episode_email(username, token):
 
 #Need to run web app at least once before using this
 from spotify_auth import authenication_token, read_username_from_csv
-
-#username = read_username_from_csv()
 token = authenication_token(username)
-#Add new episodes to Favorite Podcasts list
-#podcast_followed_new_eps(username, token)
-#Send email
 send_episode_email(username, token)
 
 
