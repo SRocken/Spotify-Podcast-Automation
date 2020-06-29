@@ -1,8 +1,14 @@
-# Functions to check episodes from podcasts
+# Functions to in this file contain everything needed to manage the Favorite Podcasts playlist
+# Including: check shows followed, check for new episodes, pull description from new episodes
 import spotipy
 import datetime
 
-#from spotify_auth import authenication_token, read_username_from_csv
+#Revised Spotipy add to playlist function to work with podcast episodes
+#Consulted with Gil Cukierman to debug Spotipy code found at this link: https://github.com/plamere/spotipy/blob/24df9ea4cf35248a016b27d9104462e619ca8132/spotipy/client.py#L1482
+#Adjustments made:
+  # Paramenter "self" to call sp for Spotipy authenticated instance 
+  # Paramenter "tracks" changed to "episodes" for continunity
+  # ftrack "tracks" swapped for "episode" to create valide URI for Spotify API endpoint
 
 def user_playlist_add_episodes(
         sp, user, playlist_id, episodes, position=None
@@ -71,24 +77,20 @@ def new_ep_descriptions_titles(username, token):
         for x in recent_ep_uris:
             sodes = sp.episode(x)
             new_episodes.append(sodes)
-        #episode_info = ["PODCAST: " + q['show']["name"] + "\n" + "EPISODE: " + q['name'] + "\n"  + "DESCRIPTION: " + q['description'] +  "\n" + "LINK: " + q['external_urls']['spotify'] for q in new_episodes]        
-        episode_info = [{"show": q['show']["name"], "name": q['name']} for q in new_episodes]
+        episode_info = ["PODCAST: " + q['show']["name"] + "\n" + "EPISODE: " + q['name'] + "\n"  + "DESCRIPTION: " + q['description'] +  "\n" + "LINK: " + q['external_urls']['spotify'] for q in new_episodes]
         return episode_info
     else:
-        episode_info = {
-            "show": "No new episodes have been added",
-            "name": ""
-        }
+        episode_info = []
         return episode_info
-        # Need this return "No new episodes" in a way that works with the email
-
 
 #if __name__ == "__main__":
+#    from spotify_auth import authenication_token, read_username_from_csv
+#
 #    username = read_username_from_csv()
 #    token = authenication_token(username)
 #
 #    #Add new episodes to Favorite Podcasts list
-#    #podcast_followed_new_eps(username, token)
+#    podcast_followed_new_eps(username, token)
 #
 #    #Pulling together episode descriptions for each added episode
 #    print(new_ep_descriptions_titles(username, token))
