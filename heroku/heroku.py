@@ -52,15 +52,15 @@ def run_full(username, token):
         sodes = sp.show(x)
         episodes.append(sodes)  
     show_items = [p["episodes"]["items"] for p in episodes]
-    recent_releases = [item[0] for item in show_items]
+    first_releases= [item[0] for item in show_items]
+    second_releases= [item[1] for item in show_items]
+    recent_releases= first_releases + second_releases
     y = datetime.datetime.now()
     today = datetime.date.today()
     date_today = str(y.strftime("%Y-%m-%d"))
     yesterday_date= str(today - datetime.timedelta(days=1))
-    #print(recent_releases)
-    #new_release = recent_releases
-    new_release = [b for b in recent_releases if str(b["release_date"]) == date_today]
-    #print(new_release)
+    new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday_date]
+    print(new_release)
     if len(new_release) > 0:
         recent_ep_uris = [sub['id'] for sub in new_release]
         playlists = sp.current_user_playlists()
@@ -84,12 +84,14 @@ def send_episode_email(username, token):
         sodes = sp.show(x)
         episodes.append(sodes) 
     show_items = [p["episodes"]["items"] for p in episodes]
-    recent_releases = [item[0] for item in show_items]
+    first_releases= [item[0] for item in show_items]
+    second_releases= [item[1] for item in show_items]
+    recent_releases= first_releases + second_releases
     y = datetime.datetime.now()
     date_today = str(y.strftime("%Y-%m-%d"))
     today = datetime.date.today()
     yesterday_date = str(today - datetime.timedelta(days=1))
-    new_release = [b for b in recent_releases if str(b["release_date"]) == date_today]
+    new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday_date]
     if len(new_release) > 0:
         recent_ep_uris = [sub['uri'] for sub in new_release] 
         new_episodes = []
