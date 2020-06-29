@@ -9,8 +9,8 @@ import warnings
 import spotipy
 import dotenv
 
-username = os.getenv("username")
-
+username_var = os.getenv("username")
+username = str(username_var)
 LOGGER = logging.getLogger(__name__)
 
 CLIENT_CREDS_ENV_VARS = {
