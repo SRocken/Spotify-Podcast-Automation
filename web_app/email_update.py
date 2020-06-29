@@ -1,3 +1,7 @@
+# This file contains the app that updates the Favorite Podcast Playlist with the latest episodes
+# and then sends the user an email summary of what was added
+# send_episode_email is called in the Flask App to send an email whenever the Flask app is used 
+
 import os
 import datetime
 import spotipy
@@ -38,7 +42,7 @@ def send_episode_email(username, token):
             for q in new_episodes
         ]
     else:
-        episode_details = [{"show":"Sorry", "name": "There were new episodes to from yesterday"}]
+        episode_details = [{"show":"Sorry", "name": "There are no new episodes to add to your playlist"}]
 
     # Sendgrid template data
     template_data = {"episode_info": episode_details}
@@ -63,7 +67,7 @@ def send_episode_email(username, token):
         print(e)
         return None
 
-#Need to run web app at least once before using this
+#Need to run web app at least once before using this as main app
 if __name__ == "__main__":
     from spotify_auth import authenication_token, read_username_from_csv
     from playlist_management import podcast_followed_new_eps

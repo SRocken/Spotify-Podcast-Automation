@@ -1,4 +1,5 @@
-# Authenticate Spotify Users in order to use the app 
+# Authenticate Spotify Users in order to use the app
+# The token and username writing function from this file is used in all other functions throughout the app 
  
 import os
 import csv
@@ -9,6 +10,9 @@ import spotipy
 import spotipy.util as util
 
 load_dotenv()
+
+# Adopted approach to create a token and save the username from https://github.com/gmr50/spotify_app/blob/master/web_app/spotify_methods.py
+# Token and username from these functions are then used as params in other primary functions
 
 # Define user token specific to this application
 
@@ -41,10 +45,6 @@ def read_username_from_csv():
     with open(csv_filepath, "r") as csv_file: # "r" means read csv file
         reader = csv.reader(csv_file)
         row1 = next(reader)
-        #for row in reader:
-            #print("Updating saved username")
-            #username = str(row)
-            #username = username[2:-2]
         print("Reading saved username:")
         username = row1
         username = "".join(username)

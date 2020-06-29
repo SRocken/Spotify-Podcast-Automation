@@ -30,15 +30,11 @@ def Execute(username=None):
         print("debug: " + username)
         print("username detected")
 
-
         # delete user id from csv to maintain clean code
         clear_username_csv()
 
         write_username_to_csv(username)
         print("Saved username to CSV")
-
-        #auth_url = authenication_token(username).get_authorize_url()#> 'https://accounts.spotify.com/authorize?client_id=_____&response_type=code&redirect_uri=________&scope=playlist-modify-private+playlist-read-private'
-        #return redirect(auth_url)
 
         print("Generating Spotify Token")
         authenication_token(username)
@@ -49,6 +45,10 @@ def Execute(username=None):
 
     app.run(debug=True)
 
+# Functions being pulled from other .py files in the repo to run all the features of the application neatly
+# On this page of the Flask app, the Favorite Podcasts playlist is created if it does not already exist
+# then the application checks which Podcast shows the user follows, and pulls the new episodes (date = yesterday only) from that show to add to the playlist
+# finally, an email is sent to the user with a summary of the shows added 
 @home_routes.route("/activity")
 def activity():
     print("Visited Activity Page")
@@ -62,9 +62,6 @@ def activity():
 
     print("Adding new episodes for followed podcasts to Favorite Podcasts playlist")
     podcast_followed_new_eps(username, token)
-
-    #print("Printing added episodes:")
-    #new_ep_descriptions_titles(username, token)
 
     print("Emailing you a summary")
     send_episode_email(username, token)
