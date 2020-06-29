@@ -6,10 +6,10 @@ __all__ = ["CLIENT_CREDS_ENV_VARS", "prompt_for_user_token"]
 import logging
 import os
 import warnings
-from spotify_auth import read_username_from_csv
 import spotipy
+import dotenv
 
-username = read_username_from_csv()
+username = os.getenv("username")
 
 LOGGER = logging.getLogger(__name__)
 
