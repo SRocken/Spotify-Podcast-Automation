@@ -7,9 +7,9 @@ from flask import Flask
 
 from web_app.routes.home_routes import home_routes
 
-def create_app():
-    load_dotenv()
+load_dotenv()
 
+def create_app():
     app_env = os.environ.get("FLASK_ENV", "development") # set to "production" in the production environment
     secret_key = os.environ.get("SECRET_KEY", "super secret") # overwrite this in the production environment
     testing = False # True if app_env == "test" else False
