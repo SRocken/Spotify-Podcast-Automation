@@ -28,7 +28,7 @@ token = util.prompt_for_user_token(username, scope)
 authenication_token(username)
 
 sp = spotipy.Spotify(auth=token)
-
+podcast_playlist_generator(username, token)
 podcast_followed_new_eps(username, token)
 
 send_episode_email(username, token)
