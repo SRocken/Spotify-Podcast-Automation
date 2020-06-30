@@ -31,8 +31,6 @@ def send_episode_email(username, token):
         recent_releases= first_releases + second_releases
     except IndexError:
         recent_releases= first_releases
-    second_releases = [item[1] for item in show_items]
-    recent_releases = first_releases + second_releases
     y = datetime.datetime.now()
     today = datetime.date.today()
     yesterday_date= str(today - datetime.timedelta(days=1))
