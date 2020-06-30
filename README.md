@@ -56,9 +56,13 @@ The fastest way to get started is to fork this repository and clone a local copy
     * Step 2:Use the online [Heroku Dashboard](https://dashboard.heroku.com/) or the command-line (instructions below) to [create a new application server](https://dashboard.heroku.com/new-app), specifying a unique name (e.g. "notification-app-123", but yours will need to be different): 
         heroku create notification-app-123 # choose your own unique name!
     * Step 3: Verify the app has been created:
+  
                 heroku apps
+
     * Step 4: Also verify this step has associated the local repo with a remote address called "heroku":
+  
              git remote -v
+             
     * Step 5: Before we copy the source code to the remote server, we need to configure the server's environment in a similar way we configured our local environment.
 
     Instead of using a ".env" file, we will directly configure the server's environment variables by either clicking "Reveal Config Vars" from the "Settings" tab in your application's Heroku dashboard, or from the command line (instructions below):
