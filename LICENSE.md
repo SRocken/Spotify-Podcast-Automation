@@ -1,0 +1,5 @@
+# License
+
+Copyright (c) 2020 Jessica Bernstein, Chris Mocharla, and Scott Rockensies.
+
+This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License <http://creativecommons.org/licenses/by-nc/4.0/>.

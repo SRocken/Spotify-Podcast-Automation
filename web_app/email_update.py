@@ -13,8 +13,8 @@ from sendgrid.helpers.mail import Mail
 
 load_dotenv()
 
-#TODO Can we import the new_ep_descriptions_titles function from the playlist_management script in place of this? 
-# Send email using template function    
+# First pulls show title and episode names from spotify for what was added to your playlist
+# Then sends email using template function; template is populated with metadata from Spotify    
 def send_episode_email(username, token):
     sp = spotipy.Spotify(auth=token)
     results = sp.current_user_saved_shows()
@@ -72,7 +72,7 @@ def send_episode_email(username, token):
         print(e)
         return None
 
-#Need to run web app at least once before using this as main app
+# You need to run web app at least once before using this as main app
 if __name__ == "__main__":
     from spotify_auth import authenication_token, read_username_from_csv
     from playlist_management import podcast_followed_new_eps

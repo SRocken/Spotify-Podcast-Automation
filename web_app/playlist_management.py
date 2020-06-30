@@ -1,5 +1,5 @@
 # Functions to in this file contain everything needed to manage the Podify playlist
-# Including: check shows followed, check for new episodes, pull description from new episodes
+# Including: check shows followed, checking for new episodes, and adding those episodes
 import spotipy
 import datetime
 
@@ -59,47 +59,3 @@ def podcast_followed_new_eps(username, token):
         user_playlist_add_episodes(sp, username, playlist['id'], recent_ep_uris, position=None)
     else:
         print("There are no new episodes to add at this time")
-
-def new_ep_descriptions_titles(username, token):
-    sp = spotipy.Spotify(auth=token)
-    results = sp.current_user_saved_shows()
-    items = results["items"]
-    ID_LIST = [p["show"]["id"] for p in items]
-    episodes = []
-    for x in ID_LIST:
-        sodes = sp.show(x)
-        episodes.append(sodes)
-    show_items = [p["episodes"]["items"] for p in episodes]
-    first_releases= [item[0] for item in show_items]
-    try:
-        second_releases= [item[1] for item in show_items]
-        recent_releases= first_releases + second_releases
-    except IndexError:
-        recent_releases= first_releases
-    y = datetime.datetime.now()
-    today = datetime.date.today()
-    yesterday_date= str(today - datetime.timedelta(days=1))
-    new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday_date]
-    if len(new_release) > 0:
-        recent_ep_uris = [sub['uri'] for sub in new_release] 
-        new_episodes = []
-        for x in recent_ep_uris:
-            sodes = sp.episode(x)
-            new_episodes.append(sodes)
-        episode_info = ["PODCAST: " + q['show']["name"] + "\n" + "EPISODE: " + q['name'] + "\n"  + "DESCRIPTION: " + q['description'] +  "\n" + "LINK: " + q['external_urls']['spotify'] for q in new_episodes]
-        return episode_info
-    else:
-        episode_info = []
-        return episode_info
-
-#if __name__ == "__main__":
-#    from spotify_auth import authenication_token, read_username_from_csv
-#
-#    username = read_username_from_csv()
-#    token = authenication_token(username)
-#
-#    #Add new episodes to Podify playlist
-#    podcast_followed_new_eps(username, token)
-#
-#    #Pulling together episode descriptions for each added episode
-#    print(new_ep_descriptions_titles(username, token))
