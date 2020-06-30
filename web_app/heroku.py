@@ -1,22 +1,18 @@
 import os
 from dotenv import load_dotenv
 import spotipy
-import sys
-from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy.util as util
-import datetime
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
 from playlist_creator import podcast_playlist_generator
 from playlist_management import podcast_followed_new_eps, new_ep_descriptions_titles, user_playlist_add_episodes
 from email_update import send_episode_email
+
 load_dotenv()
 client_id_saved = os.environ.get("SPOTIFY_CLIENT_ID")
 client_secret_saved = os.environ.get("SPOTIFY_CLIENT_SECRET")
 redirect_uri_saved = os.environ.get("SPOTIPY_REDIRECT_URI")
 username = os.getenv("username")
 scope = 'user-library-read playlist-modify-public'
-#
+
 util.prompt_for_user_token(username,
                         scope,
                         client_id= client_id_saved,
