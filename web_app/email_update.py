@@ -1,6 +1,6 @@
-# This file contains the app that updates the Favorite Podcast Playlist with the latest episodes
-# and then sends the user an email summary of what was added
-# send_episode_email is called in the Flask App to send an email whenever the Flask app is used 
+# This file contains the app that updates the Podify Playlist with the latest episodes
+# It then sends the user an email summary of what was added
+# Send_episode_email is called in the Flask App to send an email whenever the Flask app is used 
 
 import os
 import datetime
@@ -13,7 +13,8 @@ from sendgrid.helpers.mail import Mail
 
 load_dotenv()
 
-# Send email using template function
+#TODO Can we import the new_ep_descriptions_titles function from the playlist_management script in place of this? 
+# Send email using template function    
 def send_episode_email(username, token):
     sp = spotipy.Spotify(auth=token)
     results = sp.current_user_saved_shows()

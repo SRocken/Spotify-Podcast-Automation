@@ -1,4 +1,4 @@
-# Functions to in this file contain everything needed to manage the Favorite Podcasts playlist
+# Functions to in this file contain everything needed to manage the Podify playlist
 # Including: check shows followed, check for new episodes, pull description from new episodes
 import spotipy
 import datetime
@@ -52,7 +52,7 @@ def podcast_followed_new_eps(username, token):
         recent_ep_uris = [sub['id'] for sub in new_release]
         playlists = sp.current_user_playlists()
         playlists_items = playlists['items']
-        favorite_podcasts = [x for x in playlists_items if x['name'] == "Favorite Podcasts"]
+        favorite_podcasts = [x for x in playlists_items if x['name'] == "Podify"]
         playlist = favorite_podcasts[0]
         user_playlist_add_episodes(sp, username, playlist['id'], recent_ep_uris, position=None)
     else:
@@ -93,7 +93,7 @@ def new_ep_descriptions_titles(username, token):
 #    username = read_username_from_csv()
 #    token = authenication_token(username)
 #
-#    #Add new episodes to Favorite Podcasts list
+#    #Add new episodes to Podify playlist
 #    podcast_followed_new_eps(username, token)
 #
 #    #Pulling together episode descriptions for each added episode
