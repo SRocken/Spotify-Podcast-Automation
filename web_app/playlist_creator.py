@@ -13,7 +13,7 @@ def podcast_playlist_generator(username, token):
     #Check if "Podify" Playlist exists, if not, create. If it does, print "Podify Playlist Exits"
     if 'Podify' not in playlists_names:
         playlist = sp.user_playlist_create(username, "Podify", public=True, description='Latest Episodes') #Consider branding app & playlist name
-        print("Podify Playlist Created")
+        print("Podify playlist created")
     else:
-        print("Podify Playlist Exists")
+        print("Podify playlist already exists")
 
