@@ -26,6 +26,11 @@ def send_episode_email(username, token):
         episodes.append(sodes) 
     show_items = [p["episodes"]["items"] for p in episodes]
     first_releases = [item[0] for item in show_items]
+    try:
+        second_releases= [item[1] for item in show_items]
+        recent_releases= first_releases + second_releases
+    except IndexError:
+        recent_releases= first_releases
     second_releases = [item[1] for item in show_items]
     recent_releases = first_releases + second_releases
     y = datetime.datetime.now()
