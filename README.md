@@ -97,12 +97,6 @@ The fastest way to get started is to fork this repository and clone a local copy
     Finally, click on the provisioned "Heroku Scheduler" resource from the "Resources" tab, then click to "Add a new Job". When adding the job, choose to execute the designated python command (`python -web_app/heroku.py`) at a scheduled interval (e.g. every 10 minutes), and finally click to "Save" the job:
 
 
-
-
-
-
-
-
 ## Quick Overview of the Repo's Files
 
 * web_app.home_routes.py is the primary Flask application that processes the users Spotify credentials, authorizes the application to access the user's account, and then runs the playlist management and email functions locally 
