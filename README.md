@@ -108,7 +108,7 @@ The fastest way to get started is to fork this repository and clone a local copy
 
 ## Quick Overview of the Repo's Files
 
-* web_app.home_routes.py is the primary Flask application that processes the users Spotify credentials, authorizes the application to access the user's account, and then runs the playlist management and email functions locally 
+* home_routes.py is the primary Flask application that processes the users Spotify credentials, authorizes the application to access the user's account, and then runs the playlist management and email functions locally 
 
 * email_update.py is a primary application that automatically updates your Favorite Podcasts playlist and then calls the Sendgrid API to send you an email with a summary of activity. Can be run locally after you have authourized the app using the Flask application
 
