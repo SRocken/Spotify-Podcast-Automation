@@ -24,12 +24,11 @@ def send_episode_email(username, token):
         sodes = sp.show(x)
         episodes.append(sodes) 
     show_items = [p["episodes"]["items"] for p in episodes]
-    first_releases= [item[0] for item in show_items]
-    second_releases= [item[1] for item in show_items]
-    recent_releases= first_releases + second_releases
+    first_releases = [item[0] for item in show_items]
+    second_releases = [item[1] for item in show_items]
+    recent_releases = first_releases + second_releases
     y = datetime.datetime.now()
     today = datetime.date.today()
-    date_today = str(y.strftime("%Y-%m-%d"))
     yesterday_date= str(today - datetime.timedelta(days=1))
     new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday_date]
     if len(new_release) > 0:
@@ -82,5 +81,3 @@ if __name__ == "__main__":
 
     # Send email
     send_episode_email(username, token)
-
-
