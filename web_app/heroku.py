@@ -60,8 +60,8 @@ def run_full(username, token):
     recent_releases= first_releases + second_releases
     y = datetime.datetime.now()
     today = datetime.date.today()
-    date_today = str(y.strftime("%Y-%m-%d"))
-    yesterday_date= str(today - datetime.timedelta(days=1))
+    date_today = str(y.strftime("%Y-%m-%d"))#https://docs.python.org/3/library/datetime.html
+    yesterday_date= str(today - datetime.timedelta(days=1)) #https://stackoverflow.com/questions/1712116/formatting-yesterdays-date-in-python
     new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday_date]
     if len(new_release) > 0:
         recent_ep_uris = [sub['id'] for sub in new_release]
@@ -90,9 +90,9 @@ def send_episode_email(username, token):
     second_releases= [item[1] for item in show_items]
     recent_releases= first_releases + second_releases
     y = datetime.datetime.now()
-    date_today = str(y.strftime("%Y-%m-%d"))
+    date_today = str(y.strftime("%Y-%m-%d"))#https://docs.python.org/3/library/datetime.html
     today = datetime.date.today()
-    yesterday_date = str(today - datetime.timedelta(days=1))
+    yesterday_date = str(today - datetime.timedelta(days=1)) #https://stackoverflow.com/questions/1712116/formatting-yesterdays-date-in-python
     new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday_date]
     if len(new_release) > 0:
         recent_ep_uris = [sub['uri'] for sub in new_release] 
