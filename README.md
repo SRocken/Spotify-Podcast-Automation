@@ -62,7 +62,7 @@ The fastest way to get started is to fork this repository and clone a local copy
     * Step 4: Also verify this step has associated the local repo with a remote address called "heroku":
   
              git remote -v
-             
+
     * Step 5: Before we copy the source code to the remote server, we need to configure the server's environment in a similar way we configured our local environment.
 
     Instead of using a ".env" file, we will directly configure the server's environment variables by either clicking "Reveal Config Vars" from the "Settings" tab in your application's Heroku dashboard, or from the command line (instructions below):
@@ -95,7 +95,7 @@ The fastest way to get started is to fork this repository and clone a local copy
 
     * Step 8: Finally, provision and configure the server's "Heroku Scheduler" resource to run the notification script at specified intervals, for example once per day.
 
-    From the "Resources" tab in your application's Heroku dashboard, search for an add-on called "Heroku Scheduler" and provision the server with a free plan.
+        From the "Resources" tab in your application's Heroku dashboard, search for an add-on called "Heroku Scheduler" and provision the server with a free plan.
 
     ![a screenshot of searching for the resource](https://user-images.githubusercontent.com/1328807/54228813-59ff3400-44d9-11e9-803e-21fbd8f6c52f.png)
 
