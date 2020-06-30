@@ -3,28 +3,17 @@ from dotenv import load_dotenv
 
 import spotipy
 import spotipy.util as util
-
+from spotify_auth import authenication_token, read_username_from_csv
 from playlist_creator import podcast_playlist_generator
 from playlist_management import podcast_followed_new_eps, user_playlist_add_episodes
 from email_update import send_episode_email
 
 load_dotenv()
 
-username = os.getenv("username")
-scope = 'user-library-read playlist-modify-public'
 
-client_id_saved = os.environ.get("SPOTIFY_CLIENT_ID")
-client_secret_saved = os.environ.get("SPOTIFY_CLIENT_SECRET")
-SPOTIPY_REDIRECT_URI = os.environ.get("SPOTIPY_REDIRECT_URI")
-username = os.getenv("username")
-scope = 'user-library-read playlist-modify-public'
+username = read_username_from_csv()
 
-util.prompt_for_user_token(username,
-                        scope,
-                        client_id= client_id_saved,
-                        client_secret= client_secret_saved,
-                        redirect_uri= SPOTIPY_REDIRECT_URI)
-token = util.prompt_for_user_token(username, scope)
+token = authenication_token(username)
 
 sp = spotipy.Spotify(auth=token)
 

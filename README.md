@@ -72,13 +72,12 @@ The fastest way to get started is to fork this repository and clone a local copy
     or, alternatively...
         # set environment variables:
 
-            heroku config:set APP_ENV="production" 
             heroku config:set MY_EMAIL="___________"
             heroku config:set SENDGRID_API_KEY="___________"
             heroku config:set SENDGRID_TEMPLATE_ID="___________" 
-            heroku config:set SPOTIPY_CLIENT_IDE="___________"      
-            heroku config:set SPOTIPY_CLIENT_SECRET="___________"   
-            heroku config:set SPOTIPY_REDIRECT_URI="___________"   
+            heroku config:set SPOTIFY_CLIENT_IDE="___________"      
+            heroku config:set SPOTIFY_CLIENT_SECRET="___________"   
+            heroku config:set SPOTIFY_REDIRECT_URI="___________"   
             heroku config:set TO_EMAIL="___________"   
             heroku config:set username="___________"   
     * Step 6: After this configuration process is complete, you are finally ready to "deploy" the application's source code to the Heroku server:
