@@ -40,9 +40,12 @@ def podcast_followed_new_eps(username, token):
         episodes.append(sodes) 
     
     show_items = [p["episodes"]["items"] for p in episodes]
-    first_releases = [item[0] for item in show_items]
-    second_releases = [item[1] for item in show_items]
-    recent_releases = first_releases + second_releases
+    first_releases= [item[0] for item in show_items]
+    try:
+        second_releases= [item[1] for item in show_items]
+        recent_releases= first_releases + second_releases
+    except IndexError:
+        recent_releases= first_releases
     y = datetime.datetime.now()
     today = datetime.date.today()
     yesterday_date= str(today - datetime.timedelta(days=1))
@@ -67,9 +70,12 @@ def new_ep_descriptions_titles(username, token):
         sodes = sp.show(x)
         episodes.append(sodes)
     
-    first_releases = [item[0] for item in show_items]
-    second_releases = [item[1] for item in show_items]
-    recent_releases = first_releases + second_releases
+    first_releases= [item[0] for item in show_items]
+    try:
+        second_releases= [item[1] for item in show_items]
+        recent_releases= first_releases + second_releases
+    except IndexError:
+        recent_releases= first_releases
     y = datetime.datetime.now()
     today = datetime.date.today()
     yesterday_date= str(today - datetime.timedelta(days=1))
