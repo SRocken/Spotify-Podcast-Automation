@@ -1,6 +1,0 @@
-python-dotenv
-spotipy
-Flask
-sendgrid==6.0.5
-
-# pip install git+ssh://git@github.com/BlahCo/search/tree/prod_release_branch/ProductName
