@@ -1,6 +1,6 @@
-# This file contains the app that updates the Favorite Podcast Playlist with the latest episodes
-# and then sends the user an email summary of what was added
-# send_episode_email is called in the Flask App to send an email whenever the Flask app is used 
+# This file contains the app that updates the Podify Playlist with the latest episodes
+# It then sends the user an email summary of what was added
+# Send_episode_email is called in the Flask App to send an email whenever the Flask app is used 
 
 import os
 import datetime
@@ -13,7 +13,8 @@ from sendgrid.helpers.mail import Mail
 
 load_dotenv()
 
-# Send email using template function
+#TODO Can we import the new_ep_descriptions_titles function from the playlist_management script in place of this? 
+# Send email using template function    
 def send_episode_email(username, token):
     sp = spotipy.Spotify(auth=token)
     results = sp.current_user_saved_shows()
@@ -24,12 +25,11 @@ def send_episode_email(username, token):
         sodes = sp.show(x)
         episodes.append(sodes) 
     show_items = [p["episodes"]["items"] for p in episodes]
-    first_releases= [item[0] for item in show_items]
-    second_releases= [item[1] for item in show_items]
-    recent_releases= first_releases + second_releases
+    first_releases = [item[0] for item in show_items]
+    second_releases = [item[1] for item in show_items]
+    recent_releases = first_releases + second_releases
     y = datetime.datetime.now()
     today = datetime.date.today()
-    date_today = str(y.strftime("%Y-%m-%d"))
     yesterday_date= str(today - datetime.timedelta(days=1))
     new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday_date]
     if len(new_release) > 0:
@@ -77,10 +77,8 @@ if __name__ == "__main__":
     username = read_username_from_csv()
     token = authenication_token(username)
 
-    # Add new episodes to Favorite Podcasts list
+    # Add new episodes to Podify playlist
     podcast_followed_new_eps(username, token)
 
     # Send email
     send_episode_email(username, token)
-
-

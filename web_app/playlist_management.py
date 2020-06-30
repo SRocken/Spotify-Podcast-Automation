@@ -1,4 +1,4 @@
-# Functions to in this file contain everything needed to manage the Favorite Podcasts playlist
+# Functions to in this file contain everything needed to manage the Podify playlist
 # Including: check shows followed, check for new episodes, pull description from new episodes
 import spotipy
 import datetime
@@ -40,19 +40,18 @@ def podcast_followed_new_eps(username, token):
         episodes.append(sodes) 
     
     show_items = [p["episodes"]["items"] for p in episodes]
-    first_releases= [item[0] for item in show_items]
-    second_releases= [item[1] for item in show_items]
-    recent_releases= first_releases + second_releases
+    first_releases = [item[0] for item in show_items]
+    second_releases = [item[1] for item in show_items]
+    recent_releases = first_releases + second_releases
     y = datetime.datetime.now()
     today = datetime.date.today()
-    date_today = str(y.strftime("%Y-%m-%d"))
     yesterday_date= str(today - datetime.timedelta(days=1))
     new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday_date]
     if len(new_release) > 0:
         recent_ep_uris = [sub['id'] for sub in new_release]
         playlists = sp.current_user_playlists()
         playlists_items = playlists['items']
-        favorite_podcasts = [x for x in playlists_items if x['name'] == "Favorite Podcasts"]
+        favorite_podcasts = [x for x in playlists_items if x['name'] == "Podify"]
         playlist = favorite_podcasts[0]
         user_playlist_add_episodes(sp, username, playlist['id'], recent_ep_uris, position=None)
     else:
@@ -66,13 +65,13 @@ def new_ep_descriptions_titles(username, token):
     episodes = []
     for x in ID_LIST:
         sodes = sp.show(x)
-        episodes.append(sodes) 
-    first_releases= [item[0] for item in show_items]
-    second_releases= [item[1] for item in show_items]
-    recent_releases= first_releases + second_releases
+        episodes.append(sodes)
+    
+    first_releases = [item[0] for item in show_items]
+    second_releases = [item[1] for item in show_items]
+    recent_releases = first_releases + second_releases
     y = datetime.datetime.now()
     today = datetime.date.today()
-    date_today = str(y.strftime("%Y-%m-%d"))
     yesterday_date= str(today - datetime.timedelta(days=1))
     new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday_date]
     if len(new_release) > 0:
@@ -93,7 +92,7 @@ def new_ep_descriptions_titles(username, token):
 #    username = read_username_from_csv()
 #    token = authenication_token(username)
 #
-#    #Add new episodes to Favorite Podcasts list
+#    #Add new episodes to Podify playlist
 #    podcast_followed_new_eps(username, token)
 #
 #    #Pulling together episode descriptions for each added episode

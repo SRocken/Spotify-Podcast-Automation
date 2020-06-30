@@ -63,14 +63,13 @@ def run_full(username, token):
        recent_releases= first_releases
     y = datetime.datetime.now()
     today = datetime.date.today()
-    date_today = str(y.strftime("%Y-%m-%d"))#https://docs.python.org/3/library/datetime.html
     yesterday_date= str(today - datetime.timedelta(days=1)) #https://stackoverflow.com/questions/1712116/formatting-yesterdays-date-in-python
     new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday_date]
     if len(new_release) > 0:
         recent_ep_uris = [sub['id'] for sub in new_release]
         playlists = sp.current_user_playlists()
         playlists_items = playlists['items']
-        favorite_podcasts = [x for x in playlists_items if x['name'] == "Favorite Podcasts"]
+        favorite_podcasts = [x for x in playlists_items if x['name'] == "Podify"]
         playlist = favorite_podcasts[0]
         user_playlist_add_episodes(sp, username, playlist['id'], recent_ep_uris, position=None)
         print("done")
@@ -93,7 +92,6 @@ def send_episode_email(username, token):
     second_releases= [item[1] for item in show_items]
     recent_releases= first_releases + second_releases
     y = datetime.datetime.now()
-    date_today = str(y.strftime("%Y-%m-%d"))#https://docs.python.org/3/library/datetime.html
     today = datetime.date.today()
     yesterday_date = str(today - datetime.timedelta(days=1)) #https://stackoverflow.com/questions/1712116/formatting-yesterdays-date-in-python
     new_release = [b for b in recent_releases if str(b["release_date"]) == yesterday_date]
@@ -140,5 +138,3 @@ def send_episode_email(username, token):
 #from spotify_auth import authenication_token, read_username_from_csv
 #token = authenication_token(username)
 send_episode_email(username, token)
-
-

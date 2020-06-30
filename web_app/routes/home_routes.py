@@ -30,7 +30,7 @@ def Execute(username=None):
         print("debug: " + username)
         print("username detected")
 
-        # delete user id from csv to maintain clean code
+        # Delete user id from csv to maintain clean code
         clear_username_csv()
 
         write_username_to_csv(username)
@@ -46,9 +46,9 @@ def Execute(username=None):
     app.run(debug=True)
 
 # Functions being pulled from other .py files in the repo to run all the features of the application neatly
-# On this page of the Flask app, the Favorite Podcasts playlist is created if it does not already exist
-# then the application checks which Podcast shows the user follows, and pulls the new episodes (date = yesterday only) from that show to add to the playlist
-# finally, an email is sent to the user with a summary of the shows added 
+# On this page of the Flask app, the Podify playlist is created if it does not already exist
+# Then the application checks which Podcast shows the user follows, and pulls the new episodes (date = yesterday only) from that show to add to the playlist
+# Finally, an email is sent to the user with a summary of the shows added 
 @home_routes.route("/activity")
 def activity():
     print("Visited Activity Page")
@@ -57,10 +57,10 @@ def activity():
 
     token = authenication_token(username)
 
-    print("Building you a Favorite Podcasts playlist")
+    print("Building you a Podify playlist")
     podcast_playlist_generator(username, token)
 
-    print("Adding new episodes for followed podcasts to Favorite Podcasts playlist")
+    print("Adding new episodes for followed podcasts to Podify playlist")
     podcast_followed_new_eps(username, token)
 
     print("Emailing you a summary")
