@@ -128,3 +128,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+web_app/test.py

@@ -56,8 +56,11 @@ def run_full(username, token):
         episodes.append(sodes)  
     show_items = [p["episodes"]["items"] for p in episodes]
     first_releases= [item[0] for item in show_items]
-    second_releases= [item[1] for item in show_items]
-    recent_releases= first_releases + second_releases
+    try:
+        second_releases= [item[1] for item in show_items]
+        recent_releases= first_releases + second_releases
+    except IndexError:
+       recent_releases= first_releases
     y = datetime.datetime.now()
     today = datetime.date.today()
     date_today = str(y.strftime("%Y-%m-%d"))#https://docs.python.org/3/library/datetime.html
