@@ -77,7 +77,7 @@ if __name__ == "__main__":
     username = read_username_from_csv()
     token = authenication_token(username)
 
-    # Add new episodes to Favorite Podcasts list
+    # Add new episodes to Podify playlist
     podcast_followed_new_eps(username, token)
 
     # Send email

@@ -66,7 +66,7 @@ def run_full(username, token):
         recent_ep_uris = [sub['id'] for sub in new_release]
         playlists = sp.current_user_playlists()
         playlists_items = playlists['items']
-        favorite_podcasts = [x for x in playlists_items if x['name'] == "Favorite Podcasts"]
+        favorite_podcasts = [x for x in playlists_items if x['name'] == "Podify"]
         playlist = favorite_podcasts[0]
         user_playlist_add_episodes(sp, username, playlist['id'], recent_ep_uris, position=None)
         print("done")
