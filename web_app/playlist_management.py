@@ -69,7 +69,7 @@ def new_ep_descriptions_titles(username, token):
     for x in ID_LIST:
         sodes = sp.show(x)
         episodes.append(sodes)
-    
+    show_items = [p["episodes"]["items"] for p in episodes]
     first_releases= [item[0] for item in show_items]
     try:
         second_releases= [item[1] for item in show_items]
