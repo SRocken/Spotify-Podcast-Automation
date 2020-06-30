@@ -15,7 +15,7 @@ scope = 'user-library-read playlist-modify-public'
 
 client_id_saved = os.environ.get("SPOTIFY_CLIENT_ID")
 client_secret_saved = os.environ.get("SPOTIFY_CLIENT_SECRET")
-redirect_uri_saved = os.environ.get("SPOTIPY_REDIRECT_URI")
+SPOTIPY_REDIRECT_URI = os.environ.get("SPOTIPY_REDIRECT_URI")
 username = os.getenv("username")
 scope = 'user-library-read playlist-modify-public'
 
@@ -23,7 +23,7 @@ util.prompt_for_user_token(username,
                         scope,
                         client_id= client_id_saved,
                         client_secret= client_secret_saved,
-                        redirect_uri= redirect_uri_saved)
+                        redirect_uri= SPOTIPY_REDIRECT_URI)
 token = util.prompt_for_user_token(username, scope)
 
 sp = spotipy.Spotify(auth=token)
