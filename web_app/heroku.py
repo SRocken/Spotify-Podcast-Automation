@@ -13,7 +13,7 @@ from sendgrid.helpers.mail import Mail
 load_dotenv()
 client_id_saved = os.environ.get("SPOTIFY_CLIENT_ID")
 client_secret_saved = os.environ.get("SPOTIFY_CLIENT_SECRET")
-redirect_uri_saved = os.environ.get("SPOTIFY_REDIRECT_URI")
+redirect_uri_saved = os.environ.get("SPOTIPY_REDIRECT_URI")
 username = os.getenv("username")
 scope = 'user-library-read playlist-modify-public'
 #
