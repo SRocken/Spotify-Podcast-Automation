@@ -89,7 +89,7 @@ The fastest way to get started is to fork this repository and clone a local copy
             heroku run bash # login to the server
             whoami # see that you are not on your local computer anymore
             ls -al # optionally see the files, nice!
-            python -m app.daily_briefing # see the output, nice!
+
             exit # logout
 
     * Step 8: Finally, provision and configure the server's "Heroku Scheduler" resource to run the notification script at specified intervals, for example once per day.
@@ -102,7 +102,7 @@ The fastest way to get started is to fork this repository and clone a local copy
 
     NOTE: if doing this for the first time, Heroku may ask you to provide billing info. Feel free to provide it, as the services we are using to complete this exercise are all free, and your card should not be charged!
 
-    Finally, click on the provisioned "Heroku Scheduler" resource from the "Resources" tab, then click to "Add a new Job". When adding the job, choose to execute the designated python command (`python -web_app/heroku.py`) at a scheduled interval (e.g. every 10 minutes), and finally click to "Save" the job:
+    Finally, click on the provisioned "Heroku Scheduler" resource from the "Resources" tab, then click to "Add a new Job". When adding the job, choose to execute the designated python command (`python -web_app/heroku.py`) once per day at 12am to ensure the previous days podcasts have all been added each morning, and finally click to "Save" the job:
 
 
 ## Quick Overview of the Repo's Files
@@ -118,4 +118,3 @@ The fastest way to get started is to fork this repository and clone a local copy
 * spotify_auth.py contains the functions to authorize the Podcast Automation App to access your Spotify account and generate a token for the other scripts to use 
   
 * heroku.py contains the code to automate playlist and email creation on a daily basis. NOTE: This code can only be used once the Web App authorization process has been run first
-
